@@ -1,4 +1,4 @@
-# Everlution Eventbus
+# Everlution PHP MessageBus
 
 This library provides an eventbus solution in PHP for making microservices interact together.
 
@@ -195,7 +195,7 @@ try {
 }
 ```
 
-### Symfony Event Dispatcher Consumer
+#### Symfony Event Dispatcher Consumer
 
 This consumer `Everlution\MessageBus\Consumer\SymfonyEventDispatcherConsumer` integrates with Symfony and allows you to 
 transform a normal message into a Symfony Event and dispatch it within your application. In this way you can simply 
@@ -238,7 +238,7 @@ You can run them using docker with the following commands:
 
 # You can now run the demo scripts
 php demo/ping-publisher.php
-php demo/pint-consumer.php
+php demo/ping-consumer.php
 
 # When you are done tear everything down and destroy all
 ./docker/bin/compose/down.sh
