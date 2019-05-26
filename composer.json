@@ -1,0 +1,28 @@
+{
+    "name": "everlution/message-bus",
+    "type": "library",
+    "description": "MessageBus",
+    "support": {
+        "issues": "https://github.com/everlution/message-bus"
+    },
+    "authors": [
+        {
+            "name": "Michael Caldera",
+            "email": "michael.caldera@everlution.com",
+            "homepage": "https://everlution.com"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "autoload": {
+        "psr-4": {"Everlution\\MessageBus\\": "src/"}
+    },
+    "require-dev": {
+        "symfony/event-dispatcher": "^4.2",
+        "php-amqplib/php-amqplib": "^2.9",
+        "fzaninotto/faker": "^1.8",
+        "symfony/var-dumper": "^4.2",
+        "opis/json-schema": "^1.0"
+    }
+}

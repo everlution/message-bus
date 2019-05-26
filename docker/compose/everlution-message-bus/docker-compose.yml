@@ -1,0 +1,27 @@
+rabbitmq:
+    build: ../../images/rabbitmq
+    hostname: rabbitmq_host
+    tty: true
+    expose:
+        - "15672"
+        - "5672"
+    ports:
+        - "15672:15672"
+    environment:
+        RABBITMQ_DEFAULT_USER: rabbituser
+        RABBITMQ_DEFAULT_PASS: password
+    volumes:
+        - "../../tmp/rabbitmq:/var/lib/rabbitmq"
+src:
+    image: busybox
+    restart: always
+    volumes:
+        - "../../../:/var/www/project"
+php-cli:
+    build: ../../images/php-cli
+    tty: true
+    volumes_from:
+        - src
+    links:
+        - rabbitmq
+    working_dir: /var/www/project
