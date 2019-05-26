@@ -1,6 +1,6 @@
 # Everlution Eventbus
 
-This library provides an eventbus solution for making microservices interact together.
+This library provides an eventbus solution in PHP for making microservices interact together.
 
 ## Installation
 
