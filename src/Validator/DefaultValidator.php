@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace Everlution\MessageBus\Validator;
 
 use Everlution\MessageBus\Protocol\ProtocolInterface;
-use Opis\JsonSchema\Schema;
-use Opis\JsonSchema\Validator;
+use JsonSchema\Validator;
 
 class DefaultValidator implements ValidatorInterface
 {
+    private $validator;
+
+    public function __construct(Validator $validator)
+    {
+        $this->validator = $validator;
+    }
+
     /**
      * @param ProtocolInterface $protocol
      * @param array $message
@@ -17,27 +23,36 @@ class DefaultValidator implements ValidatorInterface
      */
     public function validate(ProtocolInterface $protocol, array $message): void
     {
-        $schema = Schema::fromJsonString($protocol->getJsonSchema());
+        $data = $this->arrayToObject($message);
 
-        $validator = new Validator();
+        $this
+            ->validator
+            ->validate($data, json_decode($protocol->getJsonSchema(), true));
 
-        $object = json_decode(json_encode($message));
-
-        $result = $validator->schemaValidation($object, $schema);
-
-        if (!$result->isValid()) {
-            $errors = [];
-
-            foreach ($result->getErrors() as $error) {
-                $errors[$error->keyword()] = json_encode($error->keywordArgs());
-            }
-
+        if (!$this->validator->isValid()) {
             throw new ValidatorException(
                 'JSON Schema validation failure',
                 $protocol->getJsonSchema(),
                 $message,
-                $errors
+                $this->validator->getErrors()
             );
         }
     }
+
+    private function arrayToObject($array)
+    {
+        if (count($array) == 0) {
+            return new \stdClass();
+        }
+
+        // First we convert the array to a json string
+        $json = json_encode($array);
+
+        // The we convert the json string to a stdClass()
+        $object = json_decode($json);
+
+        return $object;
+    }
 }
+
+
