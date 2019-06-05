@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Everlution\MessageBus\Consumer;
 
+use Everlution\MessageBus\Util\Symfony\MessageBusEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Everlution\MessageBus\Protocol\ProtocolInterface;
 use Everlution\MessageBus\Serializer\SerializerInterface;
 use Everlution\MessageBus\Transport\TransportInterface;
 use Everlution\MessageBus\Validator\ValidatorInterface;
-use Everlution\Util\Symfony\MessageBusEventInterface;
 
 class SymfonyEventDispatcherConsumer implements ConsumerInterface
 {

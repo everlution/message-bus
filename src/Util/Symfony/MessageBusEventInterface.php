@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Everlution\Util\Symfony;
+namespace Everlution\MessageBus\Util\Symfony;
 
 interface MessageBusEventInterface
 {
